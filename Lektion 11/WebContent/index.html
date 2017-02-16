@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Login Side</title>
+<script src="jquery-3.1.1.js"></script>
+<script src="jquery.serialize-object.js"></script>
+<script src="index.js"></script>
+<script type="text/javascript">
+	
+</script>
+<link rel="stylesheet" type="text/css" href="test.css">
+</head>
+<body>
+	<!-- login menu -->
+	<div id="maincontainer">
+		<div class="container">
+			<Div>
+				<H1 id="test">Login side</H1>
+				<H2>Gruppe 2</H2>
+			</Div>
+			<form action="useradmin.html" method="get" id="loginform">
+				<div>
+					<label for="username">Brugernavn</label> <input id="username"
+						type="text" name="username">
+				</div>
+				<div>
+					<label for="password">Kodeord</label> <input id="password"
+						type="password" name="password">
+				</div>
+				<input type="submit" value="Send data" id="loginsubmit"
+					onclick="loginJSON();">
+			</form>
+			<div class="img-container">
+				<img alt="" src="img/DTU-3.jpg" style="width: 88px; height: 137px;">
+			</div>
+		</div>
+	</div>
+</body>
+</html>
