@@ -3,33 +3,49 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script src="jquery-3.1.1.js"></script>
+<script src="jquery.serialize-object.js"></script>
+<script src="useredit.js"></script>
+
 <link rel="stylesheet" type="text/css" href="test.css">
+
 </head>
 <body>
-<DIV class="container">
-<h1>Rediger bruger</h1>
-<form action="useredit.html">
-<div>
-<label for="brugerId">Bruger Id: </label> 3
-</div>
-<div>
-<label for="brugernavn">Brugernavn</label><input type="text" value="ra">
-</div>
-<div>
-<label for="fornavn">Fornavn</label><input type="text" value="Rip">
-</div>
-<div>
-<label for="efternavn">Efternavn</label><input type="text" value="And">
-</div>
-<div>
-<label for="rolle">Rolle</label><input type="checkbox" value="Admin">Administrator<input type="checkbox" value="Admin">Bruger
-</div>
-<div>
-<label for="active">Aktiv</label><input type="radio" value="yes" checked="checked" name="active">Yes<input type="radio" value="no" name="active">No
-</div>
-<input type="submit" value="Gem ændringer">
-</form>
-</DIV>
+	<DIV class="container">
+		<h1>Opret bruger</h1>
+		<form id="userform">
+			<div>
+				<label for="userId">Bruger Id: </label> <input type="text"
+					name="userId">
+			</div>
+			<div>
+				<label for="userName">Brugernavn</label><input type="text"
+					name="userName">
+			</div>
+			<div>
+				<label for="password">Password</label><input type="text"
+					name="password">
+			</div>
+			<button onclick="createUser();">Gem ændringer</button>
+		</form>
+	</DIV>
+	<!-- Users -->
+	<div class="container" id="users">
+	<h1>Brugere</h1>
+		<table>
+			<thead>
+				<tr>
+					<td>BrugerID</td>
+					<td>BrugerNavn</td>
+					<td>Kodeord</td>
+					<td>Slet bruger<td>
+				</tr>
+			</thead>
+			<tbody id="usertablebody">
+
+			</tbody>
+		</table>
+	</div>
 
 </body>
 </html>
