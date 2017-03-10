@@ -7,47 +7,36 @@ $(document).ready(function(){
 function createUser(){
 	event.preventDefault();
 	//TODO serialize userform
-	var data = $('#userform').serializeJSON();
-	//TODO make ajax call!
-	$.ajax({
-		url : 'rest/users',
-		method: 'POST',
-		contentType: "application/json",
-		data: data,
-		success : function(data){
-			alert(JSON.stringify(data));
-			loadUsers();
-		}
-
-	});
 	
+	//TODO make ajax call!	
 
 }
 
 function deleteUser(id){
 	event.preventDefault();
-	$.ajax({
-		url :'rest/users/' + id,
-		method : 'DELETE',
-		success: function(data){
-			loadUsers();
-		}
-	})
+	//TODO ajax call to delete user
+	
+	//Hint: Remember to reload userlist
 }
 
 function loadUsers(){
-	$.get('rest/users', function(data, textStatus, req) {
-		$("#usertablebody").empty();
-		$.each(data, function(i, elt) {
-			$('#usertablebody').append(generateUserHTML(elt));
-		});
-	});
+	//TODO load list of users from service and append rows to user table
+	//Hints: $.each(data, function(i, element){ } iterates over a JSON-collection (data). 
+	// $('').append('html'), appends html to an html element.
 	
 }
-
+//Convenience function for generating som html from an 
 function generateUserHTML(user){
 	return 	'<tr><td>' + user.userId + '</td>' +
 	'<td>' + user.userName + '</td>' +
 	'<td>' + user.password +'</td>' +
-	'<td onclick="deleteUser(' + user.userId +')"><button>slet bruger</button></td></tr> '
+	'</tr>';
+}
+//generic function for making a tablerow - note that keys must be in correct order
+function generateHTML(json){
+	var html = '<tr>'
+		$.each(json, function(i, elt) {
+			html+= '<td>' + elt + '</td>';
+		});
+	return html += '</tr>';
 }

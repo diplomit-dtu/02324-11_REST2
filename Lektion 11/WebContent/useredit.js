@@ -25,6 +25,9 @@ function createUser(){
 }
 
 function deleteUser(id){
+	if (!id && id!=0){
+		id = $('#deleteid').val();
+	}
 	event.preventDefault();
 	$.ajax({
 		url :'rest/users/' + id,
@@ -50,4 +53,12 @@ function generateUserHTML(user){
 	'<td>' + user.userName + '</td>' +
 	'<td>' + user.password +'</td>' +
 	'<td onclick="deleteUser(' + user.userId +')"><button>slet bruger</button></td></tr> '
+}
+
+function generateHTML(json){
+	var html = '<tr>'
+		$.each(json, function(i, elt) {
+			html+= '<td>' + JSON.stringify(elt) + '</td>';
+		});
+	return html += '</tr>';
 }

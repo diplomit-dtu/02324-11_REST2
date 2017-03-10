@@ -22,21 +22,24 @@ import dto.User;
 public class UserService {
 	static Map<Long, User> users = new HashMap<Long, User>();
 	static Long nextId= 0L;
+	private static Long getNextId() {
+		return nextId++;
+	}
 	//Insert some dummy data
 	static {
-		Long nextId = getNextId();
-		users.put(nextId, new User(nextId, "rapAnd", "andeby"));
+		Long newId = getNextId();
+		users.put(newId, new User(newId, "rapAnd", "andeby"));
 	}
 	
 	@POST
 	public User createNewUser(User user){
-		users.put(user.getUserId(), user);
+		Long newId = getNextId();
+		user.setUserId(newId);
+		users.put(newId, user);
 		return user;
 	}
 	
-	private static Long getNextId() {
-		return nextId++;
-	}
+
 
 	@GET
 	public List<User> getAllUsers(){
@@ -48,15 +51,10 @@ public class UserService {
 	public User getOneUser(@PathParam("id") String id){
 		return users.get(id);
 	}
-
-	@DELETE
-	public void deleteSilly(){
-		deleteUser("");
-	}
 	
 	@DELETE
 	@Path("{id}")
-	public void deleteUser(@PathParam("id") String id){
+	public void deleteUser(@PathParam("id") Long id){
 		users.remove(id);
 	}
 	
