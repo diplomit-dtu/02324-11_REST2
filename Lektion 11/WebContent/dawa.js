@@ -9,6 +9,5 @@ function loadAddresses(){
 			options +='<option value="'+elt.tekst +'">';
 			$('#datalist').html(options);
 		});
-	
-	})
+	});
 }
