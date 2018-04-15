@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Opret ingrediens</title>
+<script src="jquery-3.1.1.js"></script>
+<script src="jquery.serialize-object.js"></script>
+<script>
+	$(function() {
+		$("#createingredientform").submit(function(){
+			//event.preventDefault();
+			$.ajax({
+				url : 'rest/ingredient/form',  ///' + $('#id').val() + '/' + $('#name').val() + '/' + $('#amount').val()
+				type : 'POST',
+				data : $('#createingredientform').serializeJSON(),
+				contentType : 'application/json',
+				success : function(data){
+					$('#response').html(data);
+				}
+			});
+			//$("#maincontainer").load("ingredientadmin.html");
+			return false;
+		});
+	});
+</script>
+</head>
+
+<body>
+	<div id="maincontainer">
+		<form id="createingredientform">
+			<input type="number" name="id" id="id">
+			<input type="text" name="name" id="name">
+			<input type="number" name="amount" id="amount">
+			<input type="submit" value="Findes ingrediens?">
+		</form>
+	</div>
+	<div id="response">
+
+	</div>
+</body>
+</html>

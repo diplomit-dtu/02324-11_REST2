@@ -3,8 +3,9 @@
  */
 //Alternate version of attaching clickhandler
 $(document).ready(function() {
-	$('#loginsubmit').click(function(){
-		//login(); 
+	$("#loginform").submit(function(){
+		event.preventDefault();
+		$("#maincontainer").load("useradmin.html");
 	});
 });
 

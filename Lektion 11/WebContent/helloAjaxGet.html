@@ -2,29 +2,26 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Hello JQuery</title>
+<title>Hello Test</title>
 <script src="jquery-3.1.1.js"></script>
 <script>
-$(document).ready(function() { // Sikrer sig at dokumentet er indlæst, 
-							//før click handlers håndteres
-	$('#button').click(function() { //Sætter en click handler på knappen
+$(function() { // Sikrer sig at dokumentet er indlæst, 
+			   // før click handlers håndteres
+	$('#hellobutton').click(function() { //Sætter en click handler på knappen
 			$.ajax({				//Indleder et asynkront ajax kald
 				url : 'rest/hello',	//specificerer endpointet
 				type : 'GET',	//Typen af HTTP requestet (GET er default)
-			success : function(data){//Funktion der skal udføres når data er hentet
-				$('#mydiv').html(data); //Manipulerer #mydiv.
+				success : function(data){//Funktion der skal udføres når data er hentet
+					$('#mydiv').html(data); //Manipulerer #mydiv.
 				} 
 			});
 			return false; //for at undgå at knappen poster data (default behavior).
 	});
 });
-
 </script>
 </head>
 <body>
-<form name="helloform" id="helloform">Tryk for at hente Hello
-<input type="button"  id="button" value="Hello">
-</form>
-<div id="mydiv">Hvad skal jeg sige?</div>
+<button id="hellobutton">Hello</button>
+<div id="mydiv">Tryk på knappen for at skifte teksten</div> 
 </body>
 </html>
