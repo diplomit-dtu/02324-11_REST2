@@ -2,7 +2,6 @@ package rest;
 
 import dao.IngredientDAO;
 import dto.IngredientDTO;
-import org.json.JSONArray;
 import org.json.JSONObject;
 
 import javax.ws.rs.*;
@@ -11,12 +10,13 @@ import javax.ws.rs.core.MediaType;
 import java.util.List;
 
 @Path("ingredient")
+@Consumes(MediaType.APPLICATION_JSON)
+@Produces(MediaType.APPLICATION_JSON)
 public class IngredientService {
 
     @GET
-    public String getIngredientList() {
-        List<IngredientDTO> list = IngredientDAO.getInstance().getIngredientList();
-        return new JSONArray(list).toString();
+    public List<IngredientDTO> getIngredientList() {
+        return IngredientDAO.getInstance().getIngredientList();
     }
 
     @GET
