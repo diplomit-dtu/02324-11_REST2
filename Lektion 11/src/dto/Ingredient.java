@@ -1,13 +1,13 @@
 package dto;
 
-public class IngredientDTO {
+public class Ingredient {
     private int id;
     private String name;
     private double amount;
 
-    public IngredientDTO(){}
+    public Ingredient(){}
     
-	public IngredientDTO(int id, String name, double amount) {
+	public Ingredient(int id, String name, double amount) {
 		this.id = id;
 		this.name = name;
 		this.amount = amount;

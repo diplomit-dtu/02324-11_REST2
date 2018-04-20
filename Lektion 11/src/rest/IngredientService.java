@@ -1,86 +1,52 @@
 package rest;
 
-import dao.IngredientDAO;
-import dto.IngredientDTO;
+import dto.Ingredient;
+
 import org.json.JSONObject;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Path("ingredient")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 public class IngredientService {
-
+	static Map<Integer, Ingredient> ingredients = new HashMap<>();
+	//Insert some dummy data
+	static {
+		ingredients.put(1, new Ingredient(1, "flormelis", 60.0));
+		ingredients.put(2, new Ingredient(2, "mel", 240.0));
+		ingredients.put(3, new Ingredient(3, "smør", 185.0));
+	} 
+    
     @GET
-    public List<IngredientDTO> getIngredientList() {
-        return IngredientDAO.getInstance().getIngredientList();
+    public List<Ingredient> getIngredientList() {
+        return new ArrayList<>(ingredients.values());
     }
 
     @GET
     @Path("{id}")
-    public String getIngredient(@PathParam("id") int id) {
-        String returnString;
-        IngredientDTO ingredient = IngredientDAO.getInstance().getIngredient(id);
-        if (ingredient == null)
-            returnString = "Ingredient with ID " + id + " does not exist";
-        else
-            returnString = new JSONObject(ingredient).toString();
-
-        return returnString;
+    public Ingredient getIngredient(@PathParam("id") int id) {
+        return ingredients.get(id);
     }
 
     @POST
-    @Path("form")
-    public String addIngredientForm(@FormParam("id") String id, @FormParam("name") String name, @FormParam("amount") String amount) {
-        return addIngredient(id,name,amount);
-    }
-
-    @POST
-    @Path("query")
-    public String addIngredientQuery(@QueryParam("id") String id, @QueryParam("name") String name, @QueryParam("amount") String amount) {
-        return addIngredient(id,name,amount);
-    }
-
-    @POST
-    @Path("{id}/{name}/{amount}")
-    public String addIngredientPath(@PathParam("id") String id, @PathParam("name") String name, @PathParam("amount") String amount) {
-        return addIngredient(id,name,amount);
-    }
-
-    private String addIngredient(String id, String name, String amount){
-        IngredientDTO ingredient = new IngredientDTO(Integer.parseInt(id), name, Double.parseDouble(amount));
-        IngredientDAO.getInstance().addIngredient(ingredient);
-
-        return "Ingredient added";
-    }
-
-    @POST
-    @Consumes(MediaType.APPLICATION_JSON)
-    public String addIngredientJson(String body) {
+    public Ingredient addIngredientJson(String body) {
         JSONObject jsonObject = new JSONObject(body);
-        IngredientDTO ingredient = new IngredientDTO(jsonObject.getInt("id"), jsonObject.getString("name"), jsonObject.getDouble("amount"));
-        IngredientDAO.getInstance().addIngredient(ingredient);
+        Ingredient ingredient = new Ingredient(jsonObject.getInt("id"), jsonObject.getString("name"), jsonObject.getDouble("amount"));
+        ingredients.put(ingredient.getId(), ingredient);
 
-        return "Ingredient added";
-    }
-
-    @PUT
-    @Consumes(MediaType.APPLICATION_JSON)
-    public String setIngredient(String body) {
-        JSONObject jsonObject = new JSONObject(body);
-        IngredientDTO ingredient = new IngredientDTO(jsonObject.getInt("id"), jsonObject.getString("name"), jsonObject.getDouble("amount"));
-        IngredientDAO.getInstance().setIngredient(ingredient);
-
-        return "Ingredient updated";
+        return ingredient;
     }
 
     @DELETE
     @Path("{id}")
-    public String deleteIngredient(@PathParam("id") int id) {
-        IngredientDAO.getInstance().deleteIngredient(id);
-        return "Ingredient deleted";
+    public void deleteIngredient(@PathParam("id") int id) {
+        ingredients.remove(id);
     }
 }
