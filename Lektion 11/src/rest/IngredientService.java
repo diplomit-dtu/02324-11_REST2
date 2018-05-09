@@ -2,8 +2,6 @@ package rest;
 
 import dto.Ingredient;
 
-import org.json.JSONObject;
-
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 
@@ -16,7 +14,7 @@ import java.util.Map;
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 public class IngredientService {
-	static Map<Integer, Ingredient> ingredients = new HashMap<>();
+	private static Map<Integer, Ingredient> ingredients = new HashMap<>();
 	//Insert some dummy data
 	static {
 		ingredients.put(1, new Ingredient(1, "flormelis", 60.0));
@@ -31,21 +29,21 @@ public class IngredientService {
 
     @GET
     @Path("{id}")
+    /*Eksempel på HTTP kald: GET localhost:8080/Lektion11/rest/ingredient/3 */
     public Ingredient getIngredient(@PathParam("id") int id) {
         return ingredients.get(id);
     }
 
     @POST
-    public Ingredient addIngredientJson(String body) {
-        JSONObject jsonObject = new JSONObject(body);
-        Ingredient ingredient = new Ingredient(jsonObject.getInt("id"), jsonObject.getString("name"), jsonObject.getDouble("amount"));
+    /*Variablen ingredient genereres af Jackson fra JSON-strengen i HTTP body'en*/
+    public Ingredient addIngredient(Ingredient ingredient) {
         ingredients.put(ingredient.getId(), ingredient);
-
         return ingredient;
     }
 
     @DELETE
     @Path("{id}")
+    /*Eksempel på HTTP kald: DELETE localhost:8080/Lektion11/rest/ingredient/3 */
     public void deleteIngredient(@PathParam("id") int id) {
         ingredients.remove(id);
     }
